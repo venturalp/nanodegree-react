@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ListContacts from './ListContacts';
 
 class App extends Component {
-
   state = { 
     contacts : [
       {
@@ -26,10 +25,28 @@ class App extends Component {
     ]
   }
 
+  removeContact = (contact) => {
+    this.setState((state)=>({
+      contacts: state.contacts.filter((c)=> c.id !== contact.id)
+    }));
+  }
+
+  addContact = () => {
+    console.log('AQUI');
+    this.setState((state)=>({
+      contacts: [...state.contacts, {
+        "id": "ventura" + Math.random(),
+        "name": "Guilherme Ventura de Souza",
+        "email": "guilherme.souza3@nextel.com.br",
+        "avatarURL": "http://localhost:5001/tyler.jpg"
+      }]
+    }));
+  }
+
   render() {
     return (
       <div>
-        <ListContacts contacts={this.state.contacts} />
+        <ListContacts contacts={this.state.contacts} onDeleteContact={this.removeContact} />
       </div>      
     )
   }
