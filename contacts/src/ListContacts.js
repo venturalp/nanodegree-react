@@ -7,7 +7,8 @@ class ListContacts extends Component{
 
     static propTypes = {    
         contacts: PropTypes.array.isRequired,
-        onDeleteContact: PropTypes.func.isRequired 
+        onDeleteContact: PropTypes.func.isRequired, 
+        onOpenCreateContact: PropTypes.func.isRequired
     }
 
     state = {
@@ -23,8 +24,8 @@ class ListContacts extends Component{
     }
     
     render(){
-        const { contacts, onDeleteContact } = this.props;
-        const { query } = this.state;
+        const { contacts, onDeleteContact, onOpenCreateContact } = this.props;
+        const { query } = this.state;        
 
         let showingContacts;
         if (query){
@@ -47,6 +48,7 @@ class ListContacts extends Component{
                         value={query}
                         onChange={(event)=> this.updateQuery(event.target.value)}
                     />
+                    <a href="#create" onClick={onOpenCreateContact} className='add-contact'>Add Contact</a>
                 </div>
                 {showingContacts.length !== contacts.length && (
                     <div className="showing-contacts">

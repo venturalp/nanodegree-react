@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts';
+import CreateContact from './CreateContact';
 import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
   state = { 
-    contacts : []
+    contacts : [],
+    screen: 'list' //list, create
   }
 
   componentDidMount = () =>{
@@ -21,10 +23,19 @@ class App extends Component {
     })
   }
 
+  openCreateContact = () => {
+    this.setState({screen: 'create'});
+  }
+
   render() {
     return (
       <div>
-        <ListContacts contacts={this.state.contacts} onDeleteContact={this.removeContact} />
+        {this.state.screen === 'list' && 
+          <ListContacts contacts={this.state.contacts} onDeleteContact={this.removeContact} onOpenCreateContact={this.openCreateContact}/>
+        } 
+        {this.state.screen === 'create' && 
+          <CreateContact />
+        }
       </div>      
     )
   }
